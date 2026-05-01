@@ -17,11 +17,11 @@ jobs:
         uses: microsoft/setup-msbuild@v2
 
       - name: Restore NuGet packages
-        run: nuget restore YourSolution.sln
+        run: nuget restore ricochet_deobf.sln
 
       - name: Build solution
         run: |
-          msbuild YourSolution.sln `
+          msbuild ricochet_deobf.sln `
             /p:Configuration=Release `
             /p:Platform="Any CPU" `
             /p:OutDir="${{ github.workspace }}\build\"
