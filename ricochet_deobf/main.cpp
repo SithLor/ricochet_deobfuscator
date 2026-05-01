@@ -10,7 +10,7 @@ int main()
         Load driver from disk to memory
     */
     uintptr_t address_on_disk; size_t size_on_disk;
-    if (!utils::load_to_memory("ricochetdriver.sys", &address_on_disk, &size_on_disk)) { //path to driver
+    if (!utils::load_to_memory("driver.sys", &address_on_disk, &size_on_disk)) { //path to driver
         system("pause");
         return 0;
     }
