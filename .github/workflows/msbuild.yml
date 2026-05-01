@@ -9,6 +9,10 @@ jobs:
   build:
     runs-on: windows-latest
 
+    strategy:
+      matrix:
+        platform: [x86, x64]
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -19,15 +23,15 @@ jobs:
       - name: Restore NuGet packages
         run: nuget restore ricochet_deobf.sln
 
-      - name: Build solution
+      - name: Build solution (${{ matrix.platform }})
         run: |
           msbuild ricochet_deobf.sln `
             /p:Configuration=Release `
-            /p:Platform="Any CPU" `
-            /p:OutDir="${{ github.workspace }}\build\"
+            /p:Platform=${{ matrix.platform }} `
+            /p:OutDir="${{ github.workspace }}\build\${{ matrix.platform }}\"
 
-      - name: Upload build artifact
+      - name: Upload artifact (${{ matrix.platform }})
         uses: actions/upload-artifact@v4
         with:
-          name: build-output
-          path: build/
+          name: build-${{ matrix.platform }}
+          path: build/${{ matrix.platform }}/
